@@ -7,7 +7,7 @@ var idsInfos = [];
 
 //Appeler API Back pour récupérer les icones de toutes les catégories
 function ajaxInfos() {
-    var UrlApi = "https://myprovence.code4marseille.fr/api/infos";
+    var UrlApi = "http://localhost/myprovence/public/api/infos";
 
     fetch(UrlApi)
             .then(function (reponse) {
@@ -81,7 +81,7 @@ var idInsta = [];
 function ajaxMap(hashtag = "code4marseille")
 {
 
-    var UrlApi = "https://myprovence.code4marseille.fr/api/instas?tags=" + hashtag;
+    var UrlApi = "http://localhost/myprovence/public/api/instas?tags=" + hashtag;
 
     fetch(UrlApi)
             .then(function (reponse) {
