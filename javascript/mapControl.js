@@ -335,16 +335,12 @@ var filtres = L.Control.extend({
         container.onmouseover = function () {
             $(".filtreOverlay").show();
         }
-        container.onmouseout = function () {
-            // $(".filtreOverlay").removeClass('leaflet-control-layers-expanded');
-            // $(".filtreOverlay").hide();
-        }
+
         return container;
     }
 });
 
 $(window).click(function(e) {
-  // debugger;
   if (e.target.outerHTML.includes("checkbox") === false) {
     $(".filtreOverlay").hide();
   };

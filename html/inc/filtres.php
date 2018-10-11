@@ -1,9 +1,26 @@
-<div class="overlay-box filtreOverlay leaflet-control leaflet-control-layers leaflet-control-layers-expanded" aria-hashpopup="true" id="layers">
-  <ul style="list-style: none; padding: 20px; margin-bottom: unset;">
-   <?php
+<div class="overlay-box filtreOverlay" >
+
+  live : <input type="checkbox" onclick="filtreInsta()" style="text-align: left;" id="live" checked/><br>
+
+  <?php
+    $filtres = [
+        'child' => 'child',
+        'cocktail' => 'cocktail',
+        'eye' => 'eye',
+        'thumbs-up' => 'thumbs-up',
+        'umbrella-beach' => 'umbrella-beach',
+        'swimmer' => 'swimmer',
+        'futbol' => 'futbol',
+        'fish' => 'fish',
+        'kiwi-bird' => 'kiwi-bird',
+        'smile' => 'smile',
+        'camera' => 'camera',
+        'question' => 'question'
+    ];
+
     foreach ($filtres as $filtre) {
         ?>
-        <li style="text-align: left;"><?= $filtre ?> : <input type="checkbox" onclick="filtre('<?= $filtre ?>')" checked/></li>
+        <li style="list-style: none; text-align: left; padding-left: 15px;"><?= $filtre ?> : <input type="checkbox" onclick="filtre('<?= $filtre ?>')" checked/></li>
         <?php
     }
     ?>
