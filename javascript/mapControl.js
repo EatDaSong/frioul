@@ -340,7 +340,7 @@ var filtres = L.Control.extend({
     }
 });
 
-$(window).click(function(e) {
+$(document).click(function(e) {
   if (e.target.outerHTML.includes("checkbox") === false) {
     $(".filtreOverlay").hide();
   };
