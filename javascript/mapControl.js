@@ -6,24 +6,24 @@ var lng;
  options: {
  position: 'topright'
  },
- 
+
  onAdd: function(map) {
  var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
- 
+
  container.style.backgroundColor = 'white';
  //container.style.backgroundImage = "url(http://t1.gstatic.com/images?q=tbn:ANd9GcR6FCUMW5bPn8C4PbKak2BJQQsmC-K9-mbYBeFZm1ZM2w2GRy40Ew)";
  container.style.backgroundSize = "30px 30px";
  container.style.width = '26px';
  container.style.height = '100px';
- 
+
  container.onclick = function() {
  console.log('buttonClicked');
  }
- 
+
  return container;
  }
  });
- 
+
  map.addControl(new customControl());*/
 
 
@@ -75,15 +75,15 @@ var questionControl = L.Control.extend({
             console.log((position.lng) + '');
 
             /*document.getElementById('lat').value = position.lat;
-             
+
              document.getElementById('lng').value = position.lng;*/
 
             markerQ.on('dragend', function (event) {
 
                 /**markerQ.setLatLng(position, {
-                 
+
                  draggable: 'true'
-                 
+
                  })*/
 
                 position = markerQ.getLatLng();
@@ -128,9 +128,9 @@ var questionControl = L.Control.extend({
 map.addControl(new questionControl());
 
 /**
- 
+
  *END Function Question
- 
+
  */
 
 //Envoi de la question
@@ -252,46 +252,52 @@ map.addControl(new geoloc());
  options: {
  position: 'topright'
  },
- 
+
  onAdd: function(map) {
  var containerHashtag = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
- 
+
  containerHashtag.style.backgroundColor = 'white';
  containerHashtag.style.backgroundSize = "30px 30px";
  containerHashtag.style.width = '260px';
  containerHashtag.style.height = '20px';
- 
+
  containerHashtag.onclick = function() {
  alert('buttonClicked');
  }
- 
+
  return containerHashtag;
  }
  });
- 
+
  map.addControl(new hashtagControl()); */
 /**
  *END Function SearchBar Hashtag
  */
 
 
-//nouvelle fonction 
+//nouvelle fonction
 
 var filtres = L.Control.extend({
     options: {
-        position: 'topleft'
+        position: 'topright'
     },
 
     onAdd: function (map) {
         var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
         container.title = "Filtres";
         container.style.backgroundColor = 'white';
-        container.style.backgroundSize = "26px 26px";
-        container.style.width = '26px';
-        container.style.height = '26px';
-        container.style.backgroundImage = "url(./media/mapicons/localization.png)";
+        container.style.backgroundSize = "40px 40px";
+        container.style.width = '40px';
+        container.style.height = '40px';
+        container.style.backgroundImage = "url(./media/mapicons/layers-icon.png)";
+        var layer = document.getElementById("filtres");
         container.onmouseover = function () {
-            alert("test");
+        // debugger;
+          if (layer.style.display === "none") {
+              layer.style.display = "block";
+          } else {
+              layer.style.display = "none";
+          }
         }
         container.onmouseout = function () {
             container.style.backgroundColor = 'white';
