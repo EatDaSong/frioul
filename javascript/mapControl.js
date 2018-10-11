@@ -31,6 +31,8 @@ var lng;
  *Function Question
  */
 
+var lng;
+var lat;
 
 var questionControl = L.Control.extend({
 
@@ -62,17 +64,24 @@ var questionControl = L.Control.extend({
 
             var center = map.getCenter();
 
+            IconQuestion = L.icon({
+                iconUrl: 'media/mapicons/question.png', // the url of the img
+                iconSize: [40, 40],
+                iconAnchor: [20, 40] // the coordinates of the "tip" of the icon ( in this case must be ( icon width/ 2, icon height )
+            });
+
             var markerQ = new L.marker(center, {
 
                 draggable: 'true',
 
-                iconUrl: './media/mapicons/question.png'
+                icon: IconQuestion
 
             });
 
             var position = markerQ.getLatLng();
 
-            console.log((position.lng) + '');
+            lng = position.lng;
+            lat = position.lat;
 
             /*document.getElementById('lat').value = position.lat;
 
@@ -135,7 +144,7 @@ map.addControl(new questionControl());
 
 //Envoi de la question
 
-var urlAjax = "https://myprovence.code4marseille.fr/info/api";
+var urlAjax = "http://localhost/myprovence/public/api/infos";
 
 function submitQuestion() {
 
@@ -143,49 +152,82 @@ function submitQuestion() {
 
     var description = document.querySelector("textarea[name='description']").value;
 
-    var lat = document.getElementById('lat').value;
+    console.log(lat);
 
-    var lng = document.getElementById('lng').value;
+    console.log(lng);
 
     var icone = "question";
 
-    $formData = new FormData();
+    formData = new FormData();
 
-    $formData.append('lat', lat);
+    formData.append('latitude', lat);
 
-    $formData.append('long', lng);
+    formData.append('longitude', lng);
 
-    $formData.append('title', titre);
+    formData.append('title', titre);
 
-    $formData.append('description', description);
+    formData.append('description', description);
 
-    $formData.append('icone', icone);
+    formData.append('icone', icone);
+
+    var content = `{
+     "latitude": `+lat+`,
+     "longitude": `+lng+`,
+     "publicationDate": "2018-10-11T13:38:24.374Z",
+     "endDate": "2018-10-11T13:38:24.374Z",
+     "title": "`+titre+`",
+     "description": "`+description+`",
+     "icon": "question"
+     }`;
+    console.log(content);
 
     fetch(urlAjax, {
 
-        method: "POST",
+     method: "POST",
 
-        body: $formData
+     body: content,
+     supportHeaderParams: true,
+    headers: { "Content-Type": "application/json; charset=UTF-8" },
 
-    })
+     })
 
-            .then(function (response) {
+     .then(function (response) {
 
-                console.log(response);
+     console.log(response);
 
-                // SI ON VEUT GERER DU JSON
+     // SI ON VEUT GERER DU JSON
 
-                // ON VA TRANSFORMER LE RESULTAT EN OBJET JSON
+     // ON VA TRANSFORMER LE RESULTAT EN OBJET JSON
 
-                return response.json();
+     return response.json();
 
-            })
+     })
 
-            .then(function (objetJson) {
+     .then(function (objetJson) {
 
-                console.log(objetJson);
+     console.log(objetJson);
 
-            });
+     });
+
+     /*
+    var data = `{
+     "latitude": 0,
+     "longitude": 0,
+     "publicationDate": "2018-10-11T13:38:24.374Z",
+     "endDate": "2018-10-11T13:38:24.374Z",
+     "title": "azesqazed",
+     "description": "azeqsd",
+     "icon": "test"
+     }`;
+    $.ajax({
+        type: "POST",
+        url: urlAjax,
+        data: data,
+        dataType: 'json',
+        beforeSend: function (xhr) {
+            xhr.overrideMimeType("application/ld+json");
+        }
+    });*/
 
 }
 
@@ -290,24 +332,17 @@ var filtres = L.Control.extend({
         container.style.width = '40px';
         container.style.height = '40px';
         container.style.backgroundImage = "url(./media/mapicons/layers-icon.png)";
-        var layer = document.getElementById("filtres");
         container.onmouseover = function () {
-        // debugger;
-          if (layer.style.display === "none") {
-              layer.style.display = "block";
-          } else {
-              layer.style.display = "none";
-          }
+            $(".filtreOverlay").addClass('leaflet-control-layers-expanded');
+            $(".filtreOverlay").show();
         }
         container.onmouseout = function () {
-            container.style.backgroundColor = 'white';
+            $(".filtreOverlay").removeClass('leaflet-control-layers-expanded');
+            $(".filtreOverlay").hide();
         }
-        container.onclick = function () {
-            map.locate({
-                setView: true,
-                maxZoom: 16
-            });
-        }
+        // container.onclick = function () {
+        //     $(".filtreOverlay").show();
+        // }
 
         return container;
     }
