@@ -1,6 +1,3 @@
-var lat;
-var lng;
-
 /*Exemple
  var customControl = L.Control.extend({
  options: {
