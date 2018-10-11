@@ -333,19 +333,22 @@ var filtres = L.Control.extend({
         container.style.height = '40px';
         container.style.backgroundImage = "url(./media/mapicons/layers-icon.png)";
         container.onmouseover = function () {
-            // $(".filtreOverlay").addClass('leaflet-control-layers-expanded');
             $(".filtreOverlay").show();
         }
         container.onmouseout = function () {
             // $(".filtreOverlay").removeClass('leaflet-control-layers-expanded');
-            $(".filtreOverlay").hide();
+            // $(".filtreOverlay").hide();
         }
-        // container.onclick = function () {
-        //     $(".filtreOverlay").show();
-        // }
-
         return container;
     }
+});
+
+$(window).click(function(e) {
+  // debugger;
+  if (e.target.outerHTML.includes("checkbox") === false) {
+    $(".filtreOverlay").hide();
+  };
+
 });
 
 map.addControl(new filtres());
