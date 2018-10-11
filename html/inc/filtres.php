@@ -20,7 +20,7 @@
 
     foreach ($filtres as $filtre) {
         ?>
-        <li style="list-style: none; text-align: left; padding-left: 15px;"><?= $filtre ?> : <input type="checkbox" onclick="filtre('<?= $filtre ?>')" checked/></li>
+        <li style="list-style: none; text-align: left; padding-left: 25px;"><?= $filtre ?> : <input type="checkbox" onclick="filtre('<?= $filtre ?>')" checked/></li>
         <?php
     }
     ?>
