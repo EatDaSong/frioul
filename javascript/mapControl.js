@@ -273,3 +273,38 @@ map.addControl(new geoloc());
 /**
  *END Function SearchBar Hashtag
  */
+
+
+//nouvelle fonction 
+
+var filtres = L.Control.extend({
+    options: {
+        position: 'topleft'
+    },
+
+    onAdd: function (map) {
+        var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+        container.title = "Filtres";
+        container.style.backgroundColor = 'white';
+        container.style.backgroundSize = "26px 26px";
+        container.style.width = '26px';
+        container.style.height = '26px';
+        container.style.backgroundImage = "url(./media/mapicons/localization.png)";
+        container.onmouseover = function () {
+            alert("test");
+        }
+        container.onmouseout = function () {
+            container.style.backgroundColor = 'white';
+        }
+        container.onclick = function () {
+            map.locate({
+                setView: true,
+                maxZoom: 16
+            });
+        }
+
+        return container;
+    }
+});
+
+map.addControl(new filtres());
